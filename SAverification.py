@@ -17,11 +17,11 @@ problem = {
              [0.1, 1.5]]
 }
 
-defaultvalues = np.array([0.005, 0.5, 0.5, 0.1, 2000, 0.7])
-
 # Generate samples
-nsamples = np.arange(500, 5000, 50)
-index_estimates = np.zeros([6,len(nsamples)])
+nsamples = np.arange(50, 4050, 50)
+S1_estimates = np.zeros([6,len(nsamples)])
+ST_estimates = np.zeros([6,len(nsamples)])
+
 
 for i in range(len(nsamples)):
     print('n= '+ str(nsamples[i]))
@@ -30,6 +30,12 @@ for i in range(len(nsamples)):
     output = [fish_game(*sampleset[j,:]) for j in range(len(sampleset))]
     # Perform analysis
     results = sobol.analyze(problem, np.asarray(output), calc_second_order=False,print_to_console=False)
-    index_estimates[:,i]=results['ST']
+    ST_estimates[:,i]=results['ST']
+    S1_estimates[:,i]=results['S1']
+
+np.save('ST_estimates.npy', ST_estimates)
+np.save('S1_estimates.npy', S1_estimates)
 
 
+for j in range(6):
+    plt.plot(nsamples, index_estimates[j,:])
