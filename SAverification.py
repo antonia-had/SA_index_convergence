@@ -38,4 +38,7 @@ np.save('S1_estimates.npy', S1_estimates)
 
 
 for j in range(6):
-    plt.plot(nsamples, index_estimates[j,:])
+    plt.plot(nsamples, ST_estimates[j,:])
+    
+for j in range(6):
+    plt.plot(nsamples, S1_estimates[j,:])
