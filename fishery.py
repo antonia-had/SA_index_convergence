@@ -1,6 +1,6 @@
 import numpy as np
 
-N = 1 # Number of realizations of environmental stochasticity
+N = 10 # Number of realizations of environmental stochasticity
 
 tSteps = 100 # no. of timesteps to run the fish game on
 
@@ -10,15 +10,13 @@ effort = 0.2 # harvesting effort
 def fish_game(a = 0.005, # rate at which the prey is available to the predator
               b = 0.5, # prey growth rate
               c = 0.5, # rate with which consumed prey is converted to predator abundance
+              d = 0.1, # predator death rate
               h = 0.1, # handling time (time each predator needs to consume the caught prey)
               K = 2000, # prey carrying capacity given its environmental conditions
-              m = 0.7): # predator interference parameter
-
-    
-    d = 0.1 # predator death rate   
-    sigmaX = 0.004 # variance of stochastic noise in prey population
-    sigmaY = 0.004 # variance of stochastic noise of predator population  
-      
+              m = 0.7, # predator interference parameter
+              sigmaX = 0.004, # variance of stochastic noise in prey population
+              sigmaY = 0.004): # variance of stochastic noise of predator population
+               
     x = np.zeros(tSteps+1) # Create prey population array
     y = np.zeros(tSteps+1) # Create predator population array
 
