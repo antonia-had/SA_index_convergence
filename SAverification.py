@@ -21,8 +21,8 @@ problem = {
 nsamples = np.arange(50, 4050, 50)
 
 # Arrays to store the index estimates
-S1_estimates = np.zeros([6,len(nsamples)])
-ST_estimates = np.zeros([6,len(nsamples)])
+S1_estimates = np.zeros([problem['num_vars'],len(nsamples)])
+ST_estimates = np.zeros([problem['num_vars'],len(nsamples)])
 
 # Loop through all n values, create sample, evaluate model and estimate S1 & ST
 for i in range(len(nsamples)):
