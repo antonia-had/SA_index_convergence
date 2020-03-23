@@ -6,26 +6,23 @@ import matplotlib.pyplot as plt
 
 # Set up dictionary with system parameters
 problem = {
-  'num_vars': 9,
-  'names': ['a', 'b', 'c', 'd','h',
-            'K','m','sigmaX','sigmaY'],
+  'num_vars': 6,
+  'names': ['a', 'b', 'c','h',
+            'K','m'],
   'bounds': [[ 0.002, 2],
              [0.005, 1],
              [0.2, 1],
-             [0.05, 0.2],
              [0.001, 1],
              [100, 5000],
-             [0.1, 1.5],
-             [0.001, 0.01],
-             [0.001, 0.01]]
+             [0.1, 1.5]]
 }
 
 # Array with n's to use
 nsamples = np.arange(50, 4050, 50)
 
 # Arrays to store the index estimates
-S1_estimates = np.zeros([problem['num_vars'],len(nsamples)])
-ST_estimates = np.zeros([problem['num_vars'],len(nsamples)])
+S1_estimates = np.zeros([6,len(nsamples)])
+ST_estimates = np.zeros([6,len(nsamples)])
 
 # Loop through all n values, create sample, evaluate model and estimate S1 & ST
 for i in range(len(nsamples)):
@@ -96,3 +93,4 @@ ax2.tick_params(axis='both', which='major', labelsize=14)
 ax2.set_xlabel('Number of samples (n)', fontsize=18)
 fig.legend(handles, problem['names'], loc = 'right', fontsize=14)
 plt.savefig('rankingevolution.png')
+
