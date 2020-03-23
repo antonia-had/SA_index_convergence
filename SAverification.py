@@ -43,6 +43,9 @@ for i in range(len(nsamples)):
 np.save('ST_estimates.npy', ST_estimates)
 np.save('S1_estimates.npy', S1_estimates)
 
+S1_estimates = np.load('S1_estimates.npy')
+ST_estimates = np.load('ST_estimates.npy')
+
 # Generate figure showing evolution of indices
 fig =  plt.figure(figsize=(18,9))
 ax1 = fig.add_subplot(1,2,1)
@@ -60,15 +63,17 @@ ax2.set_title('Evolution of ST index estimates', fontsize=20)
 ax2.set_ylabel('ST', fontsize=18)
 ax2.tick_params(axis='both', which='major', labelsize=14)
 ax2.set_xlabel('Number of samples (n)', fontsize=18)
-fig.legend(handles, problem['names'], loc = 'right', fontsize=14)
+fig.legend(handles, problem['names'], loc = 'right', fontsize=11)
 plt.savefig('indexevolution.png')
 
 # Calculate parameter rankings
 S1_ranks = np.zeros_like(S1_estimates)
 ST_ranks = np.zeros_like(ST_estimates)
 for i in range(len(nsamples)):
-    S1_ranks[:,i] = np.argsort(S1_estimates[:,i])
-    ST_ranks[:,i] = np.argsort(ST_estimates[:,i])
+    orderS1 = np.argsort(S1_estimates[:,i])
+    orderST = np.argsort(ST_estimates[:,i])
+    S1_ranks[:,i] = orderS1.argsort()
+    ST_ranks[:,i] = orderST.argsort()
     
 # Generate figure showing evolution of ranks
 fig =  plt.figure(figsize=(18,9))
@@ -79,7 +84,6 @@ for j in range(problem['num_vars']):
 ax1.set_title('Parameter ranking based on S1', fontsize=20)
 ax1.set_ylabel('S1', fontsize=18)
 ax1.set_xlabel('Number of samples (n)', fontsize=18)
-ax1.set_xlim(0,2000)
 ax1.set_yticklabels(np.arange(problem['num_vars']+1, 0, -1))
 ax1.tick_params(axis='both', which='major', labelsize=14)
 ax2 = fig.add_subplot(1,2,2)
@@ -90,6 +94,5 @@ ax2.set_ylabel('ST', fontsize=18)
 ax2.set_yticklabels(np.arange(problem['num_vars']+1, 0, -1))
 ax2.tick_params(axis='both', which='major', labelsize=14)
 ax2.set_xlabel('Number of samples (n)', fontsize=18)
-ax2.set_xlim(0,2000)
 fig.legend(handles, problem['names'], loc = 'right', fontsize=14)
 plt.savefig('rankingevolution.png')
